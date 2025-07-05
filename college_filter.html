@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- What Else Left To Finalise This?
+ 1) select:focus needs to be worked on
+  -->
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>College Filter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: poppins;
+            box-sizing: border-box;
+            /* line-height: normal; */
+        }
+
+        header,
+        .company,
+        .navigation_bar {
+            display: flex;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            height: 50px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* "Box-shadow needs space and contrast to shine — sticky just lifts it up to the spotlight." 🌟 */
+            position: sticky;
+            z-index: 1000;
+            top: 0px;
+            /* it sticks to the top that's all */
+        }
+
+        .company {
+            margin: 12px;
+            margin-left: 30px;
+        }
+
+        .company_logo {
+            width: 47px;
+            height: auto;
+        }
+
+        .company_name {
+            font-size: 17px;
+            color: #1f2937;
+            font-weight: bold;
+        }
+
+        .navigation_bar {
+            margin-left: 198px;
+            font-size: 15px;
+            gap: 32px;
+            /* gap only in flexbox and grid */
+        }
+
+        .nav {
+            color: #374151;
+            text-decoration: none;
+            /* font-style: italic; */
+        }
+
+        .nav:hover {
+            color: rgb(79, 70, 229);
+            /* box-shadow: 0 2px 0 0 rgba(79, 70, 229, 1); */
+            /* text-decoration: underline; */
+        }
+
+        .nav_collegeFilter {
+            color: #4f46e5;
+            /* text-decoration: underline; */
+        }
+
+        .log_reg {
+            margin-left: auto;
+            margin-right: 47px;
+        }
+
+        .login {
+            font-size: 15px;
+            padding: 6px 8px;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            background-color: transparent;
+            color: #374151;
+            margin-right: 4px;
+        }
+
+        .login:hover {
+            background-color: #f9fafb;
+            cursor: pointer;
+        }
+
+        .registor {
+            font-size: 15px;
+            padding: 6px 12px;
+            border-radius: 7px;
+            border: 1px solid #4f46e5;
+            color: #ffffff;
+            background-color: #4f46e5;
+        }
+
+        .registor:hover {
+            background-color: #4f46e5e6;
+            cursor: pointer;
+        }
+
+        .one_article {
+            background: linear-gradient(135deg,
+                    #eef2ff,
+                    #eef2ff,
+                    #eff4ff,
+                    #eef4ff,
+                    #eff5ff,
+                    #eff6ff);
+            display: flex;
+        }
+
+        .oa_headCollegeFilter {
+            color: #111827;
+            padding-top: 40px;
+            /* margin-top didn't worked, why? */
+            margin-left: 41px;
+            font-size: 32px;
+        }
+
+        .oa_headCollegeFilter span {
+            color: #4f46e5;
+        }
+
+        .oa_paraIdeaCollege {
+            margin-top: 6.5px;
+            margin-left: 41px;
+            margin-bottom: 40px;
+            font-size: 16.5px;
+            color: #374151;
+            font-weight: bolder;
+        }
+
+        .one_article i {
+            margin-left: auto;
+            font-size: 120px;
+            margin-top: 8px;
+            color: #dfe3fc;
+        }
+
+        main {
+            background-color: #f9fafb;
+            height: auto;
+            padding-top: 30px;
+            /* it solved the issue buthow and why? */
+        }
+
+        .main_firstArticle {
+            /* margin-top: 30px; */
+            margin-left: 41px;
+            border: none;
+            box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.2);
+            margin-right: 41px;
+            border-radius: 10px;
+            background-color: #ffffff;
+        }
+
+        .main_firstArticle h2,
+        .two_headFinding {
+            padding-top: 24px;
+            margin-left: 22px;
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+
+        .main_fa_gridContainer {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 75px);
+            margin-left: 22px;
+        }
+
+        .main_fa_boxContainer label {
+            color: #374151;
+            font-size: 12px;
+            letter-spacing: 0.4px;
+        }
+
+        .main_fa_boxContainer select {
+            color: #000000;
+            width: 298px;
+            height: 33px;
+            margin-top: 5px;
+            border-radius: 6px;
+            padding-left: 8px;
+            font-size: 15px;
+            border-color: #d1d5db;
+        }
+
+        .main_fa_boxContainer select:focus {
+            box-shadow: 0px 0px 0px 1px #d1d5db;
+        }
+
+        .main_firstArticle form {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+            padding-bottom: 26px;
+            margin-left: 3px;
+        }
+
+        .main_fa_btnSearch {
+            color: #ffffff;
+            background-color: #4f46e5;
+            border: none;
+            padding: 8px 24px;
+            font-size: 15px;
+            border-radius: 7px;
+        }
+
+        .main_fa_btnSearch:hover {
+            background-color: #4f46e5e6;
+            cursor: pointer;
+        }
+
+        .main_fa_btnSearch i {
+            font-size: 13px;
+            margin-right: 6px;
+        }
+
+        .main_fa_btnReset {
+            color: #374151;
+            border: 1px solid #d1d5db;
+            padding: 8px 20px;
+            font-size: 15px;
+            border-radius: 7px;
+            background: transparent;
+        }
+
+        .main_fa_btnReset:hover {
+            background-color: #f9fafb;
+            cursor: pointer;
+        }
+
+        .main_fa_btnReset i {
+            font-size: 13px;
+            margin-right: 6px;
+        }
+
+        .main_sa_firstDiv {
+            /* this was done to solve block level element issue */
+            margin-top: 75px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main_sa_firstDiv i {
+            background-color: #eef2ff;
+            /* width: 50px; */
+            font-size: 28px;
+            color: #4f46e5;
+            border-radius: 500px;
+            padding: 36px;
+            display: inline-block;
+            /* this was because fon-awesome is block level element so */
+        }
+
+        .main_sa_headReady {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 15px;
+            color: #1f2937;
+        }
+
+        .main_sa_paraFiltersAbove {
+            color: #4b5563;
+            text-align: center;
+            font-size: 14px;
+            margin-left: 360px;
+            margin-right: 365px;
+            margin-top: 15px;
+            line-height: 1.2;
+        }
+
+        .main_sa_secondDiv {
+            /* color: purple; */
+            margin: 25px 365px;
+            border: none;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.06);
+            border-radius: 10px;
+            padding-bottom: 18px;
+        }
+
+        .main_sa_secondDiv h4 {
+            color: #1f2937;
+            text-align: center;
+            font-size: 14px;
+            padding-top: 18px;
+            margin-bottom: 12px;
+        }
+
+        .main_sa_secondDiv p {
+            color: #4b5563;
+            margin-left: 20px;
+            font-size: 12px;
+            margin-top: 6px;
+            letter-spacing: 0.4px;
+        }
+
+        .main_sa_secondDiv i {
+            color: #4f46e5;
+            margin-right: 5px;
+        }
+
+        .main_sa_btnStartFiltering {
+            color: #ffffff;
+            display: flex;
+            justify-self: center;
+            padding: 9px 24px;
+            font-size: 15px;
+            border-radius: 7px;
+            border: none;
+            background-color: #4f46e5;
+        }
+
+        .main_secondArticle form {
+            padding-bottom: 100px;
+        }
+
+        .main_sa_btnStartFiltering:hover {
+            background-color: #4f46e5e6;
+            cursor: pointer;
+        }
+
+        .main_sa_btnStartFiltering i {
+            font-size: 13px;
+            margin-right: 6px;
+            margin-top: 2px;
+        }
+
+        .two_article {
+            background-color: #eef2ff;
+            height: 58vh;
+            padding-top: 50px;
+            /* align-items didn't worked here inspite height given, why? */
+        }
+
+        .two_firstDiv {
+            margin: 0px 41px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.06);
+        }
+
+        .two_fd_flexBox {
+            display: flex;
+        }
+
+        .two_paraConsultants {
+            margin-left: 22px;
+            margin-top: -10px;
+            /* minus mai hi hoga yaha extra spacing km krne kai liyai */
+            font-size: 15px;
+            color: #4b5563;
+            margin-bottom: -5px;
+        }
+
+        .two_fd_flexBox form {
+            margin-left: 22px;
+            margin: 22px;
+        }
+
+        .two_btnSchedule {
+            padding: 9px 20px;
+            font-size: 15px;
+            border-radius: 8px;
+            border: none;
+            background-color: #4f46e5;
+            color: #ffffff;
+        }
+
+        .two_btnSchedule:hover {
+            background-color: #4f46e5e6;
+            cursor: pointer;
+        }
+
+        .two_btnSchedule i {
+            margin-right: 6px;
+            font-size: 13px;
+        }
+
+        .two_fd_fB_divIcon {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            margin-right: 110px;
+        }
+
+        .two_fd_fB_divIcon i {
+            background-color: #eef2ff;
+            font-size: 45px;
+            color: #4f46e5;
+            padding: 40px;
+            border-radius: 500px;
+        }
+
+        footer {
+            background-color: #111827;
+        }
+
+        .gridFooter {
+            padding-top: 22px;
+            display: grid;
+            grid-template-columns: 300px 200px 200px 200px;
+            gap: 40px;
+        }
+
+        .first_partFooter {
+            margin-left: 35px;
+        }
+
+        .company_footer {
+            display: flex;
+            /* height: 50px; */
+        }
+
+        .company_logoFooter {
+            width: 45px;
+            height: auto;
+            /* margin-left: 35px; */
+        }
+
+        .company_nameFooter {
+            color: #ffffff;
+            font-size: 17px;
+            align-self: center;
+            font-weight: bold;
+        }
+
+        .company_dialogue {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-left: 5px;
+            margin-top: 5px;
+        }
+
+        .social_mediaFooter {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            margin-left: 5px;
+        }
+
+        .social_mediaFooter a {
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        .secondThird_partFooter {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quickResources_footer {
+            color: #ffffff;
+            font-size: 15px;
+            margin-top: 15px;
+            margin-bottom: 18px;
+        }
+
+        .secondThird_partFooter a {
+            text-decoration: none;
+            color: #9ca3af;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .secondThird_partFooter a:hover {
+            color: #ffffff;
+        }
+
+        .contact_footer {
+            color: #ffffff;
+            font-size: 15px;
+            margin-top: 15px;
+            margin-bottom: 18px;
+        }
+
+        .email_footer,
+        .phone_footer,
+        .address_footer {
+            margin-bottom: 8px;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .email_footer i,
+        .phone_footer i {
+            margin-right: 2px;
+        }
+
+        .address_footer {
+            display: flex;
+            gap: 8px;
+        }
+
+        .email_footer a,
+        .phone_footer a,
+        .address_footer a {
+            color: #9ca3af;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .email_footer a:hover,
+        .phone_footer a:hover {
+            color: #ffffff;
+        }
+
+        .address_footer a:hover {
+            cursor: text;
+        }
+
+        hr {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            margin-left: 50px;
+            margin-right: 50px;
+            border: none;
+            height: 1px;
+            background-color: #1f2937;
+            /*The <hr> is a border by default — remove it and give it height to make background-color work.*/
+        }
+
+        .others_footer {
+            display: flex;
+            padding-bottom: 35px;
+        }
+
+        .copyright_footer {
+            color: #9ca3af;
+            margin-left: 50px;
+            font-size: 11px;
+        }
+
+        .privacy_terms_cookieFooter {
+            margin-left: auto;
+            font-size: 11px;
+            /* why here, achor tag mai hona chahiyai tha na, content toh uddhar hai?? */
+            margin-right: 50px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .privacy_terms_cookieFooter a {
+            text-decoration: none;
+            color: #9ca3af;
+            /* font-size: 11px; */
+        }
+
+        .privacy_terms_cookieFooter a:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="company">
+            <img class="company_logo" src="./All Image/company_logo.png" alt="company_logo" />
+            <h1 class="company_name">AbroadEduIndia</h1>
+        </div>
+
+        <div class="navigation_bar">
+            <a class="nav nav_collegeFilter" href="#">College Filter</a>
+            <a class="nav" href="#">About Us</a>
+            <a class="nav" href="#">Contact Us</a>
+            <a class="nav" href="#">FAQs</a>
+            <a class="nav" href="#">Resources</a>
+        </div>
+
+        <form class="log_reg" action="">
+            <button class="login" type="submit">Login</button>
+            <button class="registor" type="submit">Register</button>
+        </form>
+    </header>
+    <article class="one_article">
+        <div>
+            <h1 class="oa_headCollegeFilter">College <span>Filter</span></h1>
+            <p class="oa_paraIdeaCollege">
+                Find your ideal college by filtering through our comprehensive
+                database of <br />
+                institutions worldwide.
+            </p>
+        </div>
+        <i class="fa-solid fa-filter"></i>
+    </article>
+    <main>
+        <article class="main_firstArticle">
+            <h2>Filter Colleges</h2>
+            <div class="main_fa_gridContainer">
+                <div class="main_fa_boxContainer">
+                    <label for="">Country</label>
+                    <br />
+                    <select name="" id="">
+                        <option value="">Any Country</option>
+                        <option value="">United States</option>
+                        <option value="">United Kingdom</option>
+                        <option value="">Canada</option>
+                        <option value="">Australia</option>
+                        <option value="">Germany</option>
+                        <option value="">France</option>
+                        <option value="">Japan</option>
+                        <option value="">China</option>
+                        <option value="">India</option>
+                    </select>
+                </div>
+                <div class="main_fa_boxContainer">
+                    <label for="">Degree Type</label>
+                    <br />
+                    <select name="" id="">
+                        <option value="">All Degrees</option>
+                        <option value="">Bachleor's</option>
+                        <option value="">Master's</option>
+                        <option value="">PhD</option>
+                        <option value="">Associate's</option>
+                        <option value="">Certificate</option>
+                        <option value="">Diploma</option>
+                    </select>
+                </div>
+                <div class="main_fa_boxContainer">
+                    <label for="">QS Ranking</label>
+                    <br />
+                    <select name="" id="">
+                        <option value="">Any Ranking</option>
+                        <option value="">Top 10</option>
+                        <option value="">Top 50</option>
+                        <option value="">Top 100</option>
+                        <option value="">Top 200</option>
+                        <option value="">Top 500</option>
+                        <option value="">Top 1000</option>
+                    </select>
+                </div>
+                <div class="main_fa_boxContainer">
+                    <label for="">Acceptance Rate</label>
+                    <br />
+                    <select name="" id="">
+                        <option value="">Any Rate</option>
+                        <option value="">Below 10%</option>
+                        <option value="">Below 25%</option>
+                        <option value="">Below 50%</option>
+                        <option value="">Below 75%</option>
+                    </select>
+                </div>
+                <div class="main_fa_boxContainer">
+                    <label for="">Course Availablity</label>
+                    <br />
+                    <select name="" id="">
+                        <option value="">All Courses</option>
+                        <option value="">Computer Science</option>
+                        <option value="">Arts & Humanities</option>
+                        <option value="">Law</option>
+                        <option value="">Mathematics</option>
+                        <option value="">Social Science</option>
+                        <option value="">Medicine</option>
+                        <option value="">Psychology</option>
+                    </select>
+                </div>
+            </div>
+            <form action="">
+                <button class="main_fa_btnSearch" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>Search College
+                </button>
+                <button class="main_fa_btnReset" type="reset">
+                    <i class="fa-solid fa-sync"></i>Reset Filters
+                </button>
+            </form>
+        </article>
+        <article class="main_secondArticle">
+            <div class="main_sa_firstDiv">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <h2 class="main_sa_headReady">Ready to Find Your Perfect College?</h2>
+            <p class="main_sa_paraFiltersAbove">
+                Use the filters above to search through thousands of colleges and
+                universities worldwide. Set your preferences for country, degree type,
+                rankings, and more to discover institutions that match your academic
+                goals and budget.
+            </p>
+            <div class="main_sa_secondDiv">
+                <h4>Quick Search Tips:</h4>
+                <p>
+                    <i class="fa-solid fa-check"></i>Start with your preferred country
+                    or region
+                </p>
+                <p>
+                    <i class="fa-solid fa-check"></i>Select your desired degree level
+                </p>
+                <p>
+                    <i class="fa-solid fa-check"></i>Set your qs ranking and acceptance
+                    rate
+                </p>
+                <p><i class="fa-solid fa-check"></i>Choose your field of study</p>
+            </div>
+            <form action="">
+                <button class="main_sa_btnStartFiltering">
+                    <i class="fa-solid fa-arrow-up"></i>Start Filtering Now
+                </button>
+            </form>
+        </article>
+    </main>
+    <article class="two_article">
+        <div class="two_firstDiv">
+            <div class="two_fd_flexBox">
+                <div>
+                    <h2 class="two_headFinding">
+                        Need Help Finding Your Perfect College?
+                    </h2>
+                    <p class="two_paraConsultants">
+                        Our education consultants can provide personalized guidance to
+                        help you navigate the college <br />
+                        selection process and find the institution that best fits your
+                        academic goals, budget, and <br />
+                        preferences.
+                    </p>
+                    <form action="">
+                        <button class="two_btnSchedule" type="submit">
+                            <i class="fa-solid fa-calendar-check"></i>Schedule a Free
+                            Consultation
+                        </button>
+                    </form>
+                </div>
+                <div class="two_fd_fB_divIcon">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+            </div>
+        </div>
+    </article>
+    <footer>
+        <div class="gridFooter">
+            <div class="first_partFooter">
+                <div class="company_footer">
+                    <img class="company_logoFooter" src="./All Image/companyLogo_footer.png" alt="company_logo"
+                        width="40px" />
+                    <h1 class="company_nameFooter">AbroadEduIndia</h1>
+                </div>
+                <p class="company_dialogue">
+                    Helping students find their perfect college match since 2025.
+                </p>
+                <div class="social_mediaFooter">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="secondThird_partFooter">
+                <h2 class="quickResources_footer">Quick Links</h2>
+                <a href="#">College Filter</a>
+                <a href="#">About Us</a>
+                <a href="#">Contact Us</a>
+                <a href="#">FAQs</a>
+                <a href="#">Resources</a>
+            </div>
+
+            <div class="secondThird_partFooter">
+                <h2 class="quickResources_footer">Resources</h2>
+                <a href="#">College Application Guide</a>
+                <a href="#">Scholarship Database</a>
+                <a href="#">Student Visa Information</a>
+                <a href="#">Campus Life Guide</a>
+                <a href="#">Career Planning</a>
+            </div>
+
+            <div>
+                <h2 class="contact_footer">Contact Us</h2>
+                <div class="email_footer">
+                    <i class="fa-solid fa-envelope"></i>
+                    <a href="#">info@abroadeduindia.com</a>
+                </div>
+                <div class="phone_footer">
+                    <i class="fa-solid fa-phone"></i> <a href="#">+91 (234) 567-890</a>
+                </div>
+                <div class="address_footer">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <a href="#">123 Hostel Road, Indian Institute of Technology, Patna</a>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="others_footer">
+            <p class="copyright_footer">
+                &copy 2025 AbroadEduIndia. All rights reserved.
+            </p>
+
+            <div class="privacy_terms_cookieFooter">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
